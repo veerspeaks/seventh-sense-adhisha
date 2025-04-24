@@ -1,0 +1,1 @@
+export { HomeByAnima } from "./HomeByAnima";
