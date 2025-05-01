@@ -1,4 +1,4 @@
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { Home } from "./screens/Home/Home";
@@ -7,6 +7,11 @@ import { Privacy } from "./screens/Privacy/Privacy";
 import { Terms } from "./screens/Terms/Terms";
 import { About } from "./screens/About/About";
 import { AnimatePresence } from "framer-motion";
+import emailjs from 'emailjs-com';
+
+// Initialize EmailJS with your user ID
+// Replace 'YOUR_USER_ID' with your actual EmailJS user ID
+emailjs.init("YOUR_USER_ID");
 
 // AnimationWrapper component for Routes
 const AnimatedRoutes = () => {
