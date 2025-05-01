@@ -93,7 +93,7 @@ export const ServicesGrid: React.FC = () => {
   ];
 
   return (
-    <section className="bg-black py-10 sm:py-14 md:py-20 px-4 sm:px-6">
+    <section id="services-section" className="bg-black py-10 sm:py-14 md:py-20 px-4 sm:px-6">
       <div className="max-w-7xl mx-auto">
         <h2 className="font-['Open_Sans',Helvetica] text-white text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-4 sm:mb-6">OUR <span className="text-[#ffb800]">SERVICES</span></h2>
         <p className="font-['Open_Sans',Helvetica] text-white text-lg sm:text-xl md:text-2xl text-center mb-8 sm:mb-12 md:mb-16 max-w-3xl mx-auto">

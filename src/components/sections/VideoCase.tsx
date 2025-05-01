@@ -234,7 +234,7 @@ export const VideoCase = ({ videos }: VideoCaseProps): JSX.Element => {
   }, []);
 
   return (
-    <section id="services-section" ref={sectionRef} className="relative w-full py-20 bg-[#050505] overflow-hidden">
+    <section ref={sectionRef} className="relative w-full py-20 bg-[#050505] overflow-hidden">
       {/* Wave canvas background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none z-0" />
       <div ref={containerRef} className="container mx-auto px-6 md:px-12 lg:px-16 relative z-10 max-w-7xl flex flex-col items-center">

@@ -1,6 +1,7 @@
 import { Layout } from "../../components/layout/Layout";
 import { navItems as originalNavItems } from "../../data/siteData";
 import { PageTransition } from "../../components/ui/PageTransition";
+import { Target, Eye } from "lucide-react";
 
 export const About = (): JSX.Element => {
   // Create a copy of navItems but set About to active
@@ -44,6 +45,39 @@ export const About = (): JSX.Element => {
                 Whether you're a growing business or a personal brand ready to scale — we're here 
                 to make sure your audience doesn't just see you… they remember you.
               </p>
+            </div>
+            
+            {/* Mission & Vision Section */}
+            <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Mission Card */}
+              <div className="bg-gradient-to-br from-black/80 to-gray-900 rounded-2xl p-6 md:p-8 shadow-lg border border-gray-800 transform transition-transform hover:scale-[1.02] hover:shadow-yellow-500/20">
+                <div className="flex items-center mb-4">
+                  <div className="bg-[#ffb800] p-3 rounded-full mr-4">
+                    <Target className="text-black w-6 h-6" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white">Mission</h2>
+                </div>
+                <p className="text-white/90 leading-relaxed">
+                  To help brands grow by crafting impactful content, strategies, and digital experiences 
+                  that are rooted in their unique story — delivering 
+                  <span className="text-[#ffb800] font-semibold"> real engagement, real value, and real results.</span>
+                </p>
+              </div>
+              
+              {/* Vision Card */}
+              <div className="bg-gradient-to-br from-black/80 to-gray-900 rounded-2xl p-6 md:p-8 shadow-lg border border-gray-800 transform transition-transform hover:scale-[1.02] hover:shadow-yellow-500/20">
+                <div className="flex items-center mb-4">
+                  <div className="bg-[#ffb800] p-3 rounded-full mr-4">
+                    <Eye className="text-black w-6 h-6" />
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white">Vision</h2>
+                </div>
+                <p className="text-white/90 leading-relaxed">
+                  To become a leading creative agency that redefines how businesses and personal brands 
+                  connect with their audience — through 
+                  <span className="text-[#ffb800] font-semibold"> content that speaks, strategies that scale, and results that matter.</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>

@@ -1,7 +1,8 @@
-import { useEffect, useState, useRef } from "react";
-import { ArrowRightIcon } from "lucide-react";
+import { useEffect, useState, useRef, FormEvent } from "react";
+import { ArrowRightIcon, CheckCircle2, AlertCircle } from "lucide-react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { sendHeroEmail } from "../../lib/emailService";
 
 export const MergedHeroContent = (): JSX.Element => {
   const [scrollPosition, setScrollPosition] = useState(0);
@@ -11,6 +12,14 @@ export const MergedHeroContent = (): JSX.Element => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [positions, setPositions] = useState({ docStartX: 0, docStartY: 0, docEndX: 0, docEndY: 0, endScroll: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Email form state
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [emailStatus, setEmailStatus] = useState<{
+    success: boolean | null;
+    message: string;
+  }>({ success: null, message: "" });
   
   useEffect(() => {
     const checkMobile = () => {
@@ -33,6 +42,41 @@ export const MergedHeroContent = (): JSX.Element => {
       return () => window.removeEventListener("scroll", handleScroll);
     }
   }, [isMobile]);
+  
+  // Handle email submission
+  const handleEmailSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    
+    if (!email.trim()) {
+      setEmailStatus({
+        success: false,
+        message: "Please enter your email address."
+      });
+      return;
+    }
+    
+    setIsSubmitting(true);
+    setEmailStatus({ success: null, message: "" });
+    
+    try {
+      const result = await sendHeroEmail(email);
+      setEmailStatus({
+        success: result.success,
+        message: result.message
+      });
+      
+      if (result.success) {
+        setEmail(""); // Clear the form on success
+      }
+    } catch (error) {
+      setEmailStatus({
+        success: false,
+        message: "Something went wrong. Please try again later."
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   // Dynamically measure Sabri images and compute logo animation parameters
   useEffect(() => {
@@ -188,15 +232,46 @@ export const MergedHeroContent = (): JSX.Element => {
                 that matter.
               </p>
 
-              <div className="flex w-full max-w-md items-center justify-between px-2 py-2 rounded-2xl border border-solid border-white">
-                <Input
-                  className="border-none bg-transparent font-['Open_Sans',Helvetica] font-semibold text-[#878686] text-xl focus-visible:ring-0 focus-visible:ring-offset-0"
-                  placeholder="Your email address"
-                />
-                <Button className="w-16 h-12 p-0 bg-[#ffb800] rounded-full hover:bg-[#ffb800]/90">
-                  <ArrowRightIcon className="h-16 w-16 text-black" />
-                </Button>
-              </div>
+              <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+                <div className="flex w-full max-w-md items-center justify-between px-2 py-2 rounded-2xl border border-solid border-white">
+                  <Input
+                    className="border-none bg-transparent font-['Open_Sans',Helvetica] font-semibold text-[#878686] text-xl focus-visible:ring-0 focus-visible:ring-offset-0"
+                    placeholder="Your email address"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    disabled={isSubmitting}
+                  />
+                  <Button 
+                    type="submit"
+                    className={`w-16 h-12 p-0 ${
+                      isSubmitting ? 'bg-gray-500' : 'bg-[#ffb800] hover:bg-[#ffb800]/90'
+                    } rounded-full transition-colors`}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <div className="animate-spin h-6 w-6 border-2 border-t-transparent border-white rounded-full" />
+                    ) : (
+                      <ArrowRightIcon className="h-16 w-16 text-black" />
+                    )}
+                  </Button>
+                </div>
+                
+                {/* Status message */}
+                {emailStatus.message && (
+                  <div className={`flex items-center gap-2 px-2 py-1 text-sm ${
+                    emailStatus.success 
+                      ? 'text-green-400' 
+                      : 'text-red-400'
+                  }`}>
+                    {emailStatus.success ? (
+                      <CheckCircle2 className="h-4 w-4" />
+                    ) : (
+                      <AlertCircle className="h-4 w-4" />
+                    )}
+                    <span>{emailStatus.message}</span>
+                  </div>
+                )}
+              </form>
             </div>
             <div className="flex-1 flex justify-center items-center mt-10 lg:mt-0">
               <div className="relative">
