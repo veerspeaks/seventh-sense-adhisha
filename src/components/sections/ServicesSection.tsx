@@ -175,7 +175,11 @@ export const ServicesSection = ({ serviceItems1, serviceItems2 }: ServicesSectio
           </div>
         </div>
 
-        <Button className="flex w-[263px] h-[55px] items-center gap-[10.21px] p-[4.08px] absolute top-[1250px] left-[5%] bg-white rounded-[102.09px] border-[1.02px] border-solid border-[#d9d6d6] hover:bg-[#ffb800] growth-button">
+        <Button className="flex w-[263px] h-[55px] items-center gap-[10.21px] p-[4.08px] absolute top-[1250px] left-[5%] bg-white rounded-[102.09px] border-[1.02px] border-solid border-[#d9d6d6] hover:bg-[#ffb800] growth-button"
+        onClick={() => {
+          window.location.href = '/onboarding';
+        }}
+        >
           <div className="relative w-[45.91px] h-[47.68px] mt-[-0.55px] mb-[-0.55px] bg-[#ffb800] rounded-[22.96px/23.84px] icon-circle">
             <ArrowRightIcon className="absolute w-[24px] h-[24px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-black arrow-icon" />
           </div>

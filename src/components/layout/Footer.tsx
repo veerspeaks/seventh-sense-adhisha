@@ -11,7 +11,7 @@ export const Footer = (): JSX.Element => {
           {/* Logo */}
           <div className="flex justify-center sm:justify-start">
             <img 
-              src="/seventh-sense-logo-2.svg" 
+              src="/logo/seventh_sense.png" 
               alt="Seventh Sense" 
               className="h-10 sm:h-12 w-auto" 
             />
@@ -30,7 +30,7 @@ export const Footer = (): JSX.Element => {
             <div className="flex items-center">
               <Mail className="text-[#ffb800] mr-3 flex-shrink-0" size={16} />
               <a href="mailto:hello@seventhsense.com" className="text-gray-400 text-xs sm:text-sm hover:text-[#ffb800] transition-colors">
-                hello@seventhsense.com
+              seventhsense.work@gmail.com
               </a>
             </div>
           </div>

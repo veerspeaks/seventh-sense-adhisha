@@ -14,9 +14,9 @@ export const MergedHeroContent = (): JSX.Element => {
   const [isMobile, setIsMobile] = useState(false);
   
   // Email form state
-  const [email, setEmail] = useState("");
+  const [contact, setContact] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [emailStatus, setEmailStatus] = useState<{
+  const [contactStatus, setContactStatus] = useState<{
     success: boolean | null;
     message: string;
   }>({ success: null, message: "" });
@@ -43,33 +43,33 @@ export const MergedHeroContent = (): JSX.Element => {
     }
   }, [isMobile]);
   
-  // Handle email submission
-  const handleEmailSubmit = async (e: FormEvent) => {
+  // Handle contact submission
+  const handleContactSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
-    if (!email.trim()) {
-      setEmailStatus({
+    if (!contact.trim()) {
+      setContactStatus({
         success: false,
-        message: "Please enter your email address."
+        message: "Please enter your email address or phone number."
       });
       return;
     }
     
     setIsSubmitting(true);
-    setEmailStatus({ success: null, message: "" });
+    setContactStatus({ success: null, message: "" });
     
     try {
-      const result = await sendHeroEmail(email);
-      setEmailStatus({
+      const result = await sendHeroEmail(contact);
+      setContactStatus({
         success: result.success,
         message: result.message
       });
       
       if (result.success) {
-        setEmail(""); // Clear the form on success
+        setContact(""); // Clear the form on success
       }
     } catch (error) {
-      setEmailStatus({
+      setContactStatus({
         success: false,
         message: "Something went wrong. Please try again later."
       });
@@ -232,13 +232,13 @@ export const MergedHeroContent = (): JSX.Element => {
                 that matter.
               </p>
 
-              <form onSubmit={handleEmailSubmit} className="flex flex-col gap-2">
+              <form onSubmit={handleContactSubmit} className="flex flex-col gap-2">
                 <div className="flex w-full max-w-md items-center justify-between px-2 py-2 rounded-2xl border border-solid border-white">
                   <Input
                     className="border-none bg-transparent font-['Open_Sans',Helvetica] font-semibold text-[#878686] text-xl focus-visible:ring-0 focus-visible:ring-offset-0"
-                    placeholder="Your email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Your email address or phone number"
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
                     disabled={isSubmitting}
                   />
                   <Button 
@@ -257,18 +257,18 @@ export const MergedHeroContent = (): JSX.Element => {
                 </div>
                 
                 {/* Status message */}
-                {emailStatus.message && (
+                {contactStatus.message && (
                   <div className={`flex items-center gap-2 px-2 py-1 text-sm ${
-                    emailStatus.success 
+                    contactStatus.success 
                       ? 'text-green-400' 
                       : 'text-red-400'
                   }`}>
-                    {emailStatus.success ? (
+                    {contactStatus.success ? (
                       <CheckCircle2 className="h-4 w-4" />
                     ) : (
                       <AlertCircle className="h-4 w-4" />
                     )}
-                    <span>{emailStatus.message}</span>
+                    <span>{contactStatus.message}</span>
                   </div>
                 )}
               </form>

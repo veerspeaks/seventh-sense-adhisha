@@ -59,28 +59,36 @@ export const sendOnboardingEmail = async (formData: OnboardingFormData): Promise
 
 /**
  * Sends a simple email request from the hero section
- * @param email - The email address provided by the user
+ * @param contact - The email address or phone number provided by the user
  * @returns Promise that resolves when email is sent
  */
-export const sendHeroEmail = async (email: string): Promise<{ success: boolean; message: string }> => {
+export const sendHeroEmail = async (contact: string): Promise<{ success: boolean; message: string }> => {
   try {
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    // Phone validation (basic international format)
+    const phoneRegex = /^[+]?[(]?[0-9]{3}[)]?[-\s.]?[0-9]{3}[-\s.]?[0-9]{4,6}$/;
+    
+    const isEmail = emailRegex.test(contact);
+    const isPhone = phoneRegex.test(contact);
+    
+    if (!isEmail && !isPhone) {
       return { 
         success: false, 
-        message: 'Please enter a valid email address.' 
+        message: 'Please enter a valid email address or phone number.' 
       };
     }
     
     // Prepare template parameters
     const templateParams = {
-      from_name: 'Direct email inquiry',
-      from_email: email,
-      business_name: 'Direct email - not available',
-      phone: 'Direct email - not available',
-      location: 'Direct email - not available',
-      services: 'Direct email inquiry - not specified',
+      from_name: 'Direct inquiry',
+      from_email: isEmail ? contact : 'Phone contact - see below',
+      business_name: 'Direct inquiry - not available',
+      phone: isPhone ? contact : 'Email contact - see above',
+      location: 'Direct inquiry - not available',
+      services: 'Direct inquiry - not specified',
+      contact_type: isEmail ? 'Email' : 'Phone',
+      contact_value: contact
     };
     
     // Send email
@@ -91,13 +99,13 @@ export const sendHeroEmail = async (email: string): Promise<{ success: boolean; 
       USER_ID
     );
     
-    console.log('Hero email sent successfully:', response);
+    console.log('Hero contact request sent successfully:', response);
     return { 
       success: true, 
       message: 'Thanks for your interest! We\'ll be in touch soon.' 
     };
   } catch (error) {
-    console.error('Hero email sending failed:', error);
+    console.error('Hero contact request sending failed:', error);
     return { 
       success: false, 
       message: 'There was an error sending your request. Please try again or contact us directly.' 

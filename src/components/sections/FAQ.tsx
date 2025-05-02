@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, ChevronUp, MessageSquare } from "lucide-react";
+import { Book, ChevronDown, ChevronUp, MessageSquare } from "lucide-react";
 import { Button } from "../ui/button";
 
 interface FAQItem {
@@ -198,6 +198,9 @@ export const FAQ = ({ items }: FAQProps): JSX.Element => {
               
               <Button 
                 className="w-full py-3 sm:py-4 md:py-5 lg:py-6 text-sm sm:text-base md:text-lg font-medium bg-[#ffb800] hover:bg-[#ffb800]/80 text-black rounded-xl transition-colors shadow-md hover:shadow-lg"
+                onClick={() => {
+                  window.location.href = '/onboarding';
+                }}
               >
                 Book a 1:1 Discovery Call
               </Button>
