@@ -348,7 +348,7 @@ export const VideoCase = ({ videos }: VideoCaseProps): JSX.Element => {
                       </div>
                       
                       {/* Instagram Reels UI - Bottom Caption and Music */}
-                      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/70 to-transparent">
+                      <div className="absolute bottom-0 left-0 right-0 pl-2 bg-gradient-to-t from-black/70 to-transparent">
                         <h3 className="text-white text-sm font-semibold">
                           {video.title}
                         </h3>

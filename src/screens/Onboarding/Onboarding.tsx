@@ -433,7 +433,7 @@ export const Onboarding = (): JSX.Element => {
                       </div>
                       <div>
                         <h3 className="text-white font-bold text-xl">Instagram</h3>
-                        <p className="text-white">@_.seventhsense._</p>
+                        <a href="https://www.instagram.com/_.seventhsense._" className="text-white">@_.seventhsense._</a>
                       </div>
                     </div>
                   </div>
